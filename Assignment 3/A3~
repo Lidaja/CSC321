@@ -1,0 +1,424 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Programming/Coding Assignment
+% LaTeX Template
+%
+% This template has been downloaded from:
+% http://www.latextemplates.com
+%
+% Original author:
+% Ted Pavlic (http://www.tedpavlic.com)
+%
+% Note:
+% The \lipsum[#] commands throughout this template generate dummy text
+% to fill the template out. These commands should all be removed when 
+% writing assignment content.
+%
+% This template uses a Perl script as an example snippet of code, most other
+% languages are also usable. Configure them in the "CODE INCLUSION 
+% CONFIGURATION" section.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage[usenames,dvipsnames]{color} % Required for custom colors
+\usepackage{graphicx} % Required to insert images
+\usepackage{subcaption}
+\usepackage{listings} % Required for insertion of code
+\usepackage{courier} % Required for the courier font
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage[]{algorithm2e}
+\usepackage{mathtools}
+\usepackage{verbatim}
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+\chead{\hmwkClass\ (\hmwkClassTime): \hmwkTitle} % Top center head
+\rhead{\firstxmark} % Top right header
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+%----------------------------------------------------------------------------------------
+%	CODE INCLUSION CONFIGURATION
+%----------------------------------------------------------------------------------------
+
+\definecolor{MyDarkGreen}{rgb}{0.0,0.4,0.0} % This is the color used for comments
+\lstloadlanguages{Perl} % Load Perl syntax for listings, for a list of other languages supported see: ftp://ftp.tex.ac.uk/tex-archive/macros/latex/contrib/listings/listings.pdf
+\lstset{language=Perl, % Use Perl in this example
+        frame=single, % Single frame around code
+        basicstyle=\small\ttfamily, % Use small true type font
+        keywordstyle=[1]\color{Blue}\bf, % Perl functions bold and blue
+        keywordstyle=[2]\color{Purple}, % Perl function arguments purple
+        keywordstyle=[3]\color{Blue}\underbar, % Custom functions underlined and blue
+        identifierstyle=, % Nothing special about identifiers                                         
+        commentstyle=\usefont{T1}{pcr}{m}{sl}\color{MyDarkGreen}\small, % Comments small dark green courier font
+        stringstyle=\color{Purple}, % Strings are purple
+        showstringspaces=false, % Don't put marks in string spaces
+        tabsize=5, % 5 spaces per tab
+        %
+        % Put standard Perl functions not included in the default language here
+        morekeywords={rand},
+        %
+        % Put Perl function parameters here
+        morekeywords=[2]{on, off, interp},
+        %
+        % Put user defined functions here
+        morekeywords=[3]{test},
+       	%
+        morecomment=[l][\color{Blue}]{...}, % Line continuation (...) like blue comment
+        numbers=left, % Line numbers on left
+        firstnumber=1, % Line numbers start with line 1
+        numberstyle=\tiny\color{Blue}, % Line numbers are blue and small
+        stepnumber=5 % Line numbers go in steps of 5
+}
+
+% Creates a new command to include a perl script, the first parameter is the filename of the script (without .pl), the second parameter is the caption
+\newcommand{\perlscript}[2]{
+\begin{itemize}
+\item[]\lstinputlisting[caption=#2,label=#1]{#1.pl}
+\end{itemize}
+}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterProblemHeader}[1]{
+\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+}
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitProblemHeader}[1]{
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1}{}\nobreak
+}
+
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
+
+\newcommand{\homeworkProblemName}{}
+\newenvironment{homeworkProblem}[1][Part \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
+\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
+\section{\homeworkProblemName} % Make a section in the document with the custom problem count
+\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+}{
+\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
+\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}} % Makes the box around the problem answer and puts the content inside
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Assignment\ \#2} % Assignment title
+\newcommand{\hmwkDueDate}{Wednesday,\ February\ 26,\ 2016} % Due date
+\newcommand{\hmwkClass}{CSC321} % Course/class
+\newcommand{\hmwkClassTime}{L0101} % Class/lecture time
+\newcommand{\hmwkAuthorName}{Liam Jackson} % Your name
+\newcommand{\hmwkAuthorCDF}{g4jackso} % Your name
+\newcommand{\hmwkAuthorSN}{1000691281} % Your name
+\newcommand{\forconda}{$i=floor(n/2)$ \KwTo $size(image Columns + floor(n/2)$}
+\newcommand{\forcondb}{$j=floor(n/2)$ \KwTo $size(image Rows + floor(n/2)$}
+\newcommand{\forcondc}{$u=0$ \KwTo $n$}
+\newcommand{\forcondd}{$v=0$ \KwTo $n$}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{
+\vspace{2in}
+\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+\vspace{0.1in}
+\vspace{3in}
+}
+
+\author{\textbf{\hmwkAuthorName}}
+%\date{} % Insert date here if you want it to appear below your name
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+\clearpage
+%----------------------------------------------------------------------------------------
+%	PROBLEM 1
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+Here are 10 images of each digit
+\begin{figure}[!ht]
+  \caption{10 examples of each digit}
+  \centering
+    \includegraphics[width=0.7\textwidth]{digits.png}
+\end{figure}
+\end{homeworkProblem}
+\begin{homeworkProblem}
+Here is the source code of the function that computes the neural network with vectorizations
+\begin{lstlisting}[language=python]
+def P(x,w,b):
+    return softmax(dot(w.T,x)+b)
+\end{lstlisting}
+\end{homeworkProblem}
+\begin{homeworkProblem}
+Here is the source code of the function that computes the gradient of the neural network, vectorized.
+\begin{lstlisting}[language=python]
+def gradient(x,y,w,b):
+    p = P(x,w,b)
+    x = vstack([ones(x.shape[1]),x])
+    return dot(x,(p-y).T)
+\end{lstlisting}
+\end{homeworkProblem}
+\begin{homeworkProblem}
+The following code will return the gradient and the finite approximation
+\begin{lstlisting}[language=python]
+def testGradient(x,y,w,b):
+    h = 1e-4
+    g = gradient(x,y,w,b)
+    w = vstack([b.T,w])
+    x = vstack([1,x])
+    finite = zeros(w.shape)
+    for i in range(w.shape[0]):
+        for j in range(w.shape[1]):
+            w_1 = np.copy(w)
+            w_2 = np.copy(w)
+            w_1[i,j] += h
+            w_2[i,j] -= h
+            P1 = P(x,w_1,b)
+            P2 = P(x,w_2,b)
+            Cost1 = cost(P1,y)
+            Cost2 = cost(P2,y)
+            finite[i,j] = (Cost1-Cost2)/(2*h)
+    return finite,g
+\end{lstlisting}
+Given the two arrays of equal size, we can say we know the maximum difference between any two elements in the arrays by saying the max difference is abs(finite-g).max(). This gives us about an average of 1e-4, a relatively small error.
+\end{homeworkProblem}
+\begin{homeworkProblem}
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.7\textwidth]{costs.png}
+\end{figure}
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.7\textwidth]{classifications.png}
+    \caption{About an average of 91\% accuracy}
+\end{figure}
+\begin{figure}[!ht]
+  \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+  \caption{20 Correct Classifications}
+    \includegraphics[width=1\textwidth]{DigitsR.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.4\textwidth}
+  \caption{10 Incorrect Classifications}
+    \includegraphics[width=1\textwidth]{DigitsW.png}
+    \end{subfigure}
+\end{figure}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{Weight0.png}
+        \caption{Weights 0}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{Weight1.png}
+        \caption{Weights 1}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{Weight2.png}
+        \caption{Weights 2}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{Weight3.png}
+        \caption{Weights 3}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{Weight4.png}
+        \caption{Weights 4}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{Weight5.png}
+        \caption{Weights 5}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{Weight6.png}
+        \caption{Weights 6}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{Weight7.png}
+        \caption{Weights 7}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{Weight8.png}
+        \caption{Weights 8}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{Weight9.png}
+        \caption{Weights 9}
+    \end{subfigure}
+    \caption{The Weights being used to compute the neural network after many iterations of gradient descent}
+\end{figure}
+To give a comment, you can actually see a digit being displayed in the weights. We can understand why this happens because we know each set of weights wants to help predict which digit it is classifying. So when it is red in the weight plot, it means we want to consider these corresponding values in x more than if it were blue. So we'll see a red version of the digit appear.
+\end{homeworkProblem}
+\clearpage
+\begin{homeworkProblem}
+\begin{lstlisting}[language=python]
+def deriv_multilayer(W0, b0, W1, b1, x, L0, L1, y, y_):
+    dCdL1 =  y - y_
+    dCdB1 = dot(dCdL1,ones((x.shape[1],1)))
+    dCdW1 =  dot(L0, dCdL1.T)
+    dL1dL0 = W1
+    dL0dW0 = (1-tanh_layer(x,W0,b0)**2)
+    a = dot(dL1dL0,dCdL1)
+    b = a*dL0dW0
+    dCdW0 = dot(x,b.T)
+    dCdB0 = dot((dot(dL0dW0,dCdL1.T)*dL1dL0),ones((10,1)))
+    return dCdW1,dCdW0,dCdB1,dCdB0
+\end{lstlisting}
+$\dfrac{\partial C}{\partial L1} = \sum\dfrac{\partial C}{\partial y}\dfrac{\partial y}{\partial L1} = y-y\_ \\
+\dfrac{\partial C}{\partial b1} = \dfrac{\partial C}{\partial L1} \dfrac{\partial L1}{\partial b1} = (y-y\_) \cdot \dfrac{\partial \sum W1\cdot L0 + b1}{\partial b1} =  (y-y\_) \cdot 1 \\
+\dfrac{\partial C}{\partial W1} = \dfrac{\partial C}{\partial L1} \dfrac{\partial L1}{\partial W1} = (y-y\_) \cdot \dfrac{\partial \sum W1\cdot L0 + b1}{\partial W1} = 
+(y-y\_) \cdot L0 \\
+$We can determine that $ \dfrac{\partial C}{\partial W0} = \dfrac{\partial C}{\partial L1} \dfrac{\partial L1}{\partial L0} \dfrac{\partial L0}{\partial W0}$ and $\dfrac{\partial C}{\partial b0} = \dfrac{\partial C}{\partial L1} \dfrac{\partial L1}{\partial L0} \dfrac{\partial L0}{\partial b0}\\
+\dfrac{\partial L1}{\partial L0} = \dfrac{\partial \sum W1\cdot L0 + b1}{\partial L1} = W1 \\
+\dfrac{\partial L0}{\partial W0} = \dfrac{\partial tanh(\sum W0\cdot x + b0)}{\partial W0} = 1-tanh(\sum W0\cdot x + b0)^2 \cdot x\\
+\dfrac{\partial L0}{\partial b0} = \dfrac{\partial tanh(\sum W0\cdot x + b0)}{\partial b0} = 1-tanh(\sum W0\cdot x + b0)^2 \cdot 1$
+And then with some rearranging and transposing, we can correctly get our gradients with the proper dimensions to use in the gradient descent.
+\end{homeworkProblem}
+\begin{homeworkProblem}
+My code to get the finite approximation of the multilayer network is \begin{lstlisting}[language=python]
+def testMultilayer(W0, b0, W1, b1, x, L0, L1, y, y_):
+    h = 1e-8
+    dCdL1 =  y - y_
+    dCdB1 = dot(dCdL1,ones((x.shape[1],1)))
+    dCdW1 =  dot(L0, dCdL1.T)
+    dL1dL0 = W1
+    dL0dW0 = (1-tanh_layer(x,W0,b0)**2)
+    a = dot(dL1dL0,dCdL1)
+    b = a*dL0dW0
+    dCdW0 = dot(x,b.T)
+    dCdB0 = dot((dot(dL0dW0,dCdL1.T)*dL1dL0),ones((10,1)))
+    finite0 = zeros(W0.shape)
+    finite1 = zeros(W1.shape)
+    for i in range(W0.shape[0]//10):
+        for j in range(W0.shape[1]//10):
+            w_1 = np.copy(W0)
+            w_2 = np.copy(W0)
+            w_1[i,j] += h
+            w_2[i,j] -= h
+            L0,L1,Y1 = forward(x,w_1,b0,W1,b1)
+            L0,L1,Y2 = forward(x,w_2,b0,W1,b1)
+            Cost1 = cost(Y1,y)
+            Cost2 = cost(Y2,y)
+            finite0[i,j] = (Cost1-Cost2)/(2*h)
+    for i in range(W1.shape[0]//10):
+        for j in range(W1.shape[1]//10):
+            w_1 = np.copy(W1)
+            w_2 = np.copy(W1)
+            w_1[i,j] += h
+            w_2[i,j] -= h
+            L0,L1,Y1 = forward(x,W0,b0,w_1,b1)
+            L0,L1,Y2 = forward(x,W0,b0,w_2,b1)
+            Cost1 = cost(Y1,y)
+            Cost2 = cost(Y2,y)
+            finite1[i,j] = (Cost1-Cost2)/(2*h)
+    S0 = dCdW0.shape
+    S1 = dCdW1.shape
+    
+    return abs(dCdW0[:S0[0]//4,:S0[1]//4] - finite0[:S0[0]//4,:S0[1]//4]).max(),
+     		abs(dCdW1[:S1[0]//4,:S1[1]//4] - finite1[:S1[0]//4,:S1[1]//4]).max()
+\end{lstlisting}
+Which returns two relatively small numbers, hopefully showing my gradient is working correctly.
+\end{homeworkProblem}
+\begin{homeworkProblem}
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.6\textwidth]{costs2.png}
+\end{figure}
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.6\textwidth]{classifications2.png}
+    \caption{About an average of 98\% accuracy with a peak 99.4\%}
+\end{figure}
+\begin{figure}[!ht]
+  \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+  \caption{20 Correct Classifications}
+    \includegraphics[width=1\textwidth]{multiR.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.4\textwidth}
+  \caption{10 Incorrect Classifications}
+    \includegraphics[width=1\textwidth]{multiW.png}
+    \end{subfigure}
+\end{figure}
+\end{homeworkProblem}
+\clearpage
+\begin{homeworkProblem}
+I needed to select two weights of the 300 going into the hidden layer.
+\begin{figure}[!ht]
+  \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+  \caption{20 Correct Classifications}
+    \includegraphics[width=1\textwidth]{W0Weight65.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.4\textwidth}
+  \caption{10 Incorrect Classifications}
+    \includegraphics[width=1\textwidth]{W0Weight252.png}
+    \end{subfigure}
+\end{figure}
+
+The reason I chose the first one is because almost all of the weights are very smooth in how red or blue they are, but this one has a very dominant red streak through it, and it makes me curious as to why this set of weights is like so.
+
+I then chose the second one in contrast to the first one. While almost all the weights have a little bit of blue and red in them, this one seems to be a pure flat red image, which I suppose it means it considers a little bit of every value.
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
+
